@@ -1,0 +1,45 @@
+<!-- HEADER AND TODO COUNT -->
+		<div class="jumbotron text-center">
+			<h1>Domain Brainstorming Application <span class="label label-info">{{ ideas.length }}</span></h1>
+		</div>
+		<div class="description text-center">
+			Tato jednorázová aplikace je vytvořená pro sběr všech více či méně možných námětů na "ideální" doménu. Neváhejte přidávat všechno co vás napadne. Všichni nejspíš tušímě jak funguje brainstorming a tohle nám může trochu pomoci. Pokud se náhodou někdo přepíšete, můžete to to smazat (po kliknutí na červený koš budete ještě vyzváni k potvrzení). Všechny svoje náměty prosím oprostěte o předponu "www." i příponu ".cz".
+		</div>
+
+		<!-- TODO LIST -->
+		<div id="idea-list" class="row">
+			<div class="col-sm-4 col-sm-offset-4">
+
+				
+
+				<!-- LOOP OVER THE TODOS IN $scope.ideas -->
+				<div class="checkbox" ng-repeat="idea in ideas">
+					<label>
+						<!--<input type="checkbox" confirmed-click="deleteIdea(idea._id)" ng-confirm-click="Would you like to say hi?" > {{ idea.text }}-->
+						<i class="fa fa-trash" style="color:red;" confirmed-click="deleteIdea(idea._id)" ng-confirm-click="Are you sure to delete this idea?" aria-hidden="true"></i> {{ idea.text }}
+					</label>
+				</div>
+				
+
+				<p class="text-center" ng-show="loading">
+					<span class="fa fa-spinner fa-spin fa-3x"></span>
+				</p>
+
+			</div>
+		</div>
+
+		<!-- FORM TO CREATE TODOS -->
+		<div id="idea-form" class="row">
+			<div class="col-sm-8 col-sm-offset-2 text-center">
+				<form>
+					<div class="form-group">
+
+						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+						<input type="text" class="form-control input-lg text-center" placeholder="..." ng-model="formData.text">
+					</div>
+
+					<!-- createToDo() WILL CREATE NEW TODOS -->
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="createIdea()">Share your idea</button>
+				</form>
+			</div>
+		</div>

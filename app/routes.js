@@ -1,53 +1,67 @@
-var Todo = require('./models/todo');
+var Idea = require('./models/idea');
+var sha1 = require('sha1');
+var salt="64gsdgf655g565h45g6h4a64w89egwev1v23cx1v4xzejioqp2387fsv4fx6bx822907";
+var admin = 'admin';
+var pass = 'pass';
+var hash = sha1(pass+salt);
 
-function getTodos(res) {
-    Todo.find(function (err, todos) {
+function getIdeas(res) {
+    Idea.find(function (err, ideas) {
 
         // if there is an error retrieving, send the error. nothing after res.send(err) will execute
         if (err) {
             res.send(err);
         }
 
-        res.json(todos); // return all todos in JSON format
+        res.json(ideas); // return all ideas in JSON format
     });
 };
 
 module.exports = function (app) {
 
     // api ---------------------------------------------------------------------
-    // get all todos
-    app.get('/api/todos', function (req, res) {
-        // use mongoose to get all todos in the database
-        getTodos(res);
+    // get all ideas
+    app.get('/api/ideas', function (req, res) {
+            // use mongoose to get all ideas in the database
+            getIdeas(res);
+        
     });
 
-    // create todo and send back all todos after creation
-    app.post('/api/todos', function (req, res) {
+    // create idea and send back all ideas after creation
+    app.post('/api/ideas', function (req, res) {
 
-        // create a todo, information comes from AJAX request from Angular
-        Todo.create({
+        // create a idea, information comes from AJAX request from Angular
+        Idea.create({
             text: req.body.text,
             done: false
-        }, function (err, todo) {
+        }, function (err, idea) {
             if (err)
                 res.send(err);
 
-            // get and return all the todos after you create another
-            getTodos(res);
+            // get and return all the ideas after you create another
+            getIdeas(res);
         });
 
     });
 
-    // delete a todo
-    app.delete('/api/todos/:todo_id', function (req, res) {
-        Todo.remove({
-            _id: req.params.todo_id
-        }, function (err, todo) {
+    // delete a idea
+    app.delete('/api/ideas/:idea_id', function (req, res) {
+        Idea.remove({
+            _id: req.params.idea_id
+        }, function (err, idea) {
             if (err)
                 res.send(err);
 
-            getTodos(res);
+            getIdeas(res);
         });
+    });
+
+    app.post('/api/authenticate', function (req, res) {
+        var isAuthenticated = false;
+
+        if (req.body.username === admin && req.body.password === pass)
+            isAuthenticated = hash;
+        res.json({callback:isAuthenticated})
     });
 
     // application -------------------------------------------------------------
