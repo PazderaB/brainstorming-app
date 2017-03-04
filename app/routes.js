@@ -1,8 +1,8 @@
 var Idea = require('./models/idea');
 var sha1 = require('sha1');
 var salt="64gsdgf655g565h45g6h4a64w89egwev1v23cx1v4xzejioqp2387fsv4fx6bx822907";
-var admin = 'admin';
-var pass = 'pass';
+var admin = 'user';
+var pass = 'veverka';
 var hash = sha1(pass+salt);
 
 function getIdeas(res) {
@@ -12,7 +12,6 @@ function getIdeas(res) {
         if (err) {
             res.send(err);
         }
-
         res.json(ideas); // return all ideas in JSON format
     });
 };
@@ -46,14 +45,23 @@ module.exports = function (app) {
 
     // delete a idea
     app.delete('/api/ideas/:idea_id', function (req, res) {
-        Idea.remove({
+        Idea.findById(req.params.idea_id, function (err, idea) { 
+            idea.remove(function (err, removedIdea) {
+                if (err)
+                  res.send(err);
+                console.warn(removedIdea);
+                getIdeas(res);
+            })
+         });
+/*Idea.remove({
             _id: req.params.idea_id
         }, function (err, idea) {
             if (err)
                 res.send(err);
-
+console.log(idea.result);
             getIdeas(res);
-        });
+        });*/
+        
     });
 
     app.post('/api/authenticate', function (req, res) {
