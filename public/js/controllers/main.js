@@ -39,6 +39,10 @@ var app = angular.module('ideaController', ['ui.router'])
 			}
 		};
 
+		$scope.reload = function() {
+		   $route.reload();
+		}
+
 		// DELETE ==================================================================
 		// delete a idea after checking it
 		$scope.deleteIdea = function(id) {
