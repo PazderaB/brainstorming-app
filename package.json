@@ -4,6 +4,9 @@
   "description": "Brainstorming Application.",
   "main": "server.js",
   "author": "Boris Pazdera",
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "angular-confirm": "^2.0.0-alpha.2",
     "body-parser": "^1.4.3",
