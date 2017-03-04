@@ -8,5 +8,5 @@ gulp.task('default', function () {
     .pipe(concat('./public/js/app.js'))
     .pipe(ngAnnotate())
     .pipe(uglify())
-    .pipe(gulp.dest('.'))
+    .pipe(gulp.dest('.'));
 })
