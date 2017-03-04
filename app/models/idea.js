@@ -5,7 +5,8 @@ module.exports = mongoose.model('Idea', {
         type: String,
         default: '',
         lowercase: true, 
-        trim: true   
+        trim: true 
     },
-    updated: { type: Date, default: Date.now }
+    updated: { type: Date, default: Date.now },
+    vote: { type: Number, default:0}
 });

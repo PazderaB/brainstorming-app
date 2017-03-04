@@ -47,8 +47,8 @@ module.exports = function (app) {
     app.delete('/api/ideas/:idea_id', function (req, res) {
         Idea.findById(req.params.idea_id, function (err, idea) { 
             idea.remove(function (err, removedIdea) {
-                if (err)
-                  res.send(err);
+                /*if (err)
+                  res.send(err);*/
                 console.warn(removedIdea);
                 getIdeas(res);
             })
