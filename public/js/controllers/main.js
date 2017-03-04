@@ -10,7 +10,11 @@ var app = angular.module('ideaController', ['ui.router'])
 		// use the service to get all the ideas
 		Ideas.get()
 			.success(function(data) {
-				$scope.ideas = data;
+				if(!LoginService.isAuthenticated()) {
+      			  $scope.ideas = []; 
+      			} else {
+				  $scope.ideas = data; 
+      			}
 				$scope.loading = false;
 			});
 
