@@ -1,7 +1,7 @@
 var app = angular.module('ideaController', ['ui.router'])
 
 	// inject the Idea service factory into our controller
-	.controller('mainController', ['$scope','$http','Ideas','$state','Authenticate', 'LoginService', '$timeout','$route', function($scope, $http, Ideas, $state, Authenticate, LoginService, $timeout,$route) {
+	.controller('mainController', ['$scope','$http','Ideas','$state','Authenticate', 'LoginService', '$timeout', function($scope, $http, Ideas, $state, Authenticate, LoginService, $timeout) {
 		$scope.formData = {};
 		$scope.loading = true;
 
@@ -40,7 +40,7 @@ var app = angular.module('ideaController', ['ui.router'])
 		};
 
 		$scope.reload = function() {
-		   $route.reload();
+		   location.reload(); 
 		}
 
 		// DELETE ==================================================================
