@@ -5,8 +5,10 @@ angular.module('loginService', [])
 	.factory('Authenticate', ['$http',function($http) {
 		return {
 			authenticate : function(authenticateData) {
-				a=$http.post('/api/authenticate', authenticateData);
-				return a;
+				return $http.post('/api/authenticate', authenticateData);
+			},
+			authenticateToken : function(token) {
+				return $http.get('/api/authenticate/'+token);
 			}
 		}
 	}]);

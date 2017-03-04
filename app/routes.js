@@ -72,6 +72,13 @@ console.log(idea.result);
         res.json({callback:isAuthenticated})
     });
 
+    app.get('/api/authenticate/:token', function (req, res) {
+        var isAuthenticated = false;
+        if (req.params.token===hash)
+            isAuthenticated = hash;
+        res.json({callback:isAuthenticated})
+    });
+
     // application -------------------------------------------------------------
     app.get('*', function (req, res) {
         res.sendFile(__dirname + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)

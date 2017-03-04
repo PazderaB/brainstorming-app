@@ -119,10 +119,15 @@ var app = angular.module('ideaController', ['ui.router'])
       		return false
       	}
         auth=JSON.parse(localStorage.getItem("token")).token || false;
-        if (!auth) {
-        	$state.go("login");
-        	return false
-        }
+        Authenticate.authenticateToken(auth).then(function(data) {
+      		value = data.data.callback===false? data.data.callback : '"' + data.data.callback + '"';
+			localStorage.setItem("token", '{"token":' + value + '}')
+			if(data.data.callback===false){
+				$state.go("login");
+        		return false
+			}
+        	return isAuthenticated;
+        })
 
         return auth;
       }
